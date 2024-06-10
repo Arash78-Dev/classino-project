@@ -18,7 +18,7 @@ import BaseInput from "../components/BaseInput";
 import axios from "axios";
 
 interface Request {
-  phone: string;
+  mobile: string;
   landing_name: string;
   utm_source?: string;
   utm_medium?: string;
@@ -49,10 +49,10 @@ const Footer: FC = () => {
 
     const data: Request = {
       landing_name: "jame1404",
-      utm_medium: queryParams.get("utm_medium") as string | undefined,
-      utm_source: queryParams.get("utm_source") as string | undefined,
-      gclid: queryParams.get("gclid") as string | undefined,
-      phone: phone,
+      utm_medium: queryParams.get("utm_medium") as string | undefined ?? undefined,
+      utm_source: queryParams.get("utm_source") as string | undefined ?? undefined,
+      gclid: queryParams.get("gclid") as string | undefined ?? undefined,
+      mobile: phone,
     };
 
     axios
