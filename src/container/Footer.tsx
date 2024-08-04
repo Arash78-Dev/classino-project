@@ -34,8 +34,11 @@ const Footer: FC = () => {
   const [phone, setPhone] = useState("");
 
   const [isSubmit, setIsSubmit] = useState(false);
-
   const queryParams = new URLSearchParams(window.location.search);
+  const utm_source = queryParams.get("utm_source") as string | undefined;
+  const utm_medium = queryParams.get("utm_medium") as string | undefined;
+  const gclid = queryParams.get("gclid") as string | undefined;
+
   const breakpoint = useBreakpoint();
   const tiresrc = useBreakpointValue({ base: tiremobile, lg: tire });
 
@@ -49,16 +52,19 @@ const Footer: FC = () => {
 
     const data: Request = {
       landing_name: "jame1404",
-      utm_medium: queryParams.get("utm_medium") as string | undefined ?? undefined,
-      utm_source: queryParams.get("utm_source") as string | undefined ?? undefined,
-      gclid: queryParams.get("gclid") as string | undefined ?? undefined,
+      utm_medium: utm_medium ?? undefined,
+      utm_source: utm_source ?? undefined,
+      gclid: gclid ?? undefined,
       mobile: phone,
     };
 
     axios
       .post(url, data)
       .then(() => {
-        window.open("https://student.classino.com/auth/login");
+        const nextUrl =
+          "https://student.classino.com/auth/login" + window.location.search;
+
+        window.location.href = nextUrl;
       })
       .catch((error) => {
         console.log(error);
